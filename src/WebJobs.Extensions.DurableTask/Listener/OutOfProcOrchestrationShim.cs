@@ -201,6 +201,10 @@ namespace Microsoft.Azure.WebJobs.Extensions.DurableTask
                 // to protect against possible exceptions. Exception handling
                 // and exception throwing is managed in the OOProc SDKs and
                 // should not affect / interrupt this replay loop
+                // We use a WhenAny here instead of try/catch block
+                // that ignores all exception so that we only swallow
+                // exceptions that are thrown by Tasks, but still surface
+                // exceptions we throw internally.
                 await Task.WhenAny(this.InvokeAPIFromAction(action));
             }
         }
