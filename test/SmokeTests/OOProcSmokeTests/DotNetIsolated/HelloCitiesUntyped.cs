@@ -1,6 +1,7 @@
 ﻿// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using DurableTask;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
@@ -38,18 +39,19 @@ internal static class HelloSequenceUntyped
     /// <summary>
     /// Orchestrator function that calls the <see cref="SayHelloUntyped"/> activity function several times consecutively.
     /// </summary>
-    /// <param name="state">The opaque orchestration state that gets passed to the function. Code should never attempt to read this state.</param>
+    /// <param name="requestState">The serialized orchestration state that gets passed to the function.</param>
     /// <returns>Returns an opaque output string with instructions about what actions to persist into the orchestration history.</returns>
     [Function(nameof(HelloCitiesUntyped))]
-    public static string HelloCitiesUntyped([OrchestrationTrigger] string state) =>
-        DurableOrchestrator.LoadAndRun<string, string>(state, async (context, _) =>
+    public static string HelloCitiesUntyped([OrchestrationTrigger] string requestState, FunctionContext functionContext) =>
+        OrchestrationRunner.LoadAndRun<string, string>(requestState, async (context, _) =>
         {
             string result = "";
             result += await context.CallActivityAsync<string>(nameof(SayHelloUntyped), "Tokyo") + " ";
             result += await context.CallActivityAsync<string>(nameof(SayHelloUntyped), "London") + " ";
             result += await context.CallActivityAsync<string>(nameof(SayHelloUntyped), "Seattle");
             return result;
-        });
+        },
+        functionContext.InstanceServices);
 
     /// <summary>
     /// Simple activity function that returns the string "Hello, {input}!".
