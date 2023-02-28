@@ -26,8 +26,8 @@
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.*" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Azure.DurableTask.Emulator" Version="2.5.4" />
-    <PackageReference Include="Microsoft.Azure.DurableTask.Redis" Version="0.1.9-alpha" />
+    <!--PackageReference Include="Microsoft.Azure.DurableTask.Emulator" Version="2.5.4" /-->
+    <!--PackageReference Include="Microsoft.Azure.DurableTask.Redis" Version="0.1.9-alpha" /-->
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +39,10 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\..\..\durabletask\src\DurableTask.AzureStorage\DurableTask.AzureStorage.csproj" />
+    <ProjectReference Include="..\..\..\durabletask\src\DurableTask.Core\DurableTask.Core.csproj" />
+    <ProjectReference Include="..\..\..\durabletask\src\DurableTask.Emulator\DurableTask.Emulator.csproj" />
+    <ProjectReference Include="..\..\..\durabletask\src\DurableTask.Redis\DurableTask.Redis.csproj" />
     <ProjectReference Include="..\..\src\WebJobs.Extensions.DurableTask\WebJobs.Extensions.DurableTask.csproj" />
   </ItemGroup>
 

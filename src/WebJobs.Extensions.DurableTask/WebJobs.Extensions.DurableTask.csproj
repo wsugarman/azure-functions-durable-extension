@@ -110,8 +110,8 @@
     <!-- The below version of Azure.Storage.Blobs must align with the Functions Host -->
     <PackageReference Include="Azure.Storage.Blobs" Version="12.13.0" />
     <PackageReference Include="Azure.Storage.Queues" Version="12.12.0" />
-    <PackageReference Include="Microsoft.Azure.DurableTask.Core" Version="2.12.1" />
-    <PackageReference Include="Microsoft.Azure.DurableTask.AzureStorage" Version="2.0.0-preview.1" />
+    <!--PackageReference Include="Microsoft.Azure.DurableTask.Core" Version="2.12.1" /-->
+    <!--PackageReference Include="Microsoft.Azure.DurableTask.AzureStorage" Version="2.0.0-preview.1" /-->
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.DurableTask.Analyzers" Version="0.5.*" />
     <!-- Build-time dependencies -->
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.*" PrivateAssets="All" />
@@ -132,6 +132,10 @@
       <Pack>true</Pack>
       <PackagePath>content/SBOM</PackagePath>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\durabletask\src\DurableTask.AzureStorage\DurableTask.AzureStorage.csproj" />
+    <ProjectReference Include="..\..\..\durabletask\src\DurableTask.Core\DurableTask.Core.csproj" />
   </ItemGroup>
 
 </Project>
